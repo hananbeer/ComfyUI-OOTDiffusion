@@ -26,6 +26,9 @@ class OpenPose:
             pose, detected_map = self.preprocessor(input_image, hand_and_face=False)
 
             candidate = pose['bodies']['candidate']
+            if not pose['bodies']['subset']:
+                raise Exception('No person detected in the model_image')
+
             subset = pose['bodies']['subset'][0][:18]
             for i in range(18):
                 if subset[i] == -1:
